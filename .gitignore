@@ -157,3 +157,6 @@ pythontex-files-*/
 
 # Latexian
 TSWLatexianTemp*
+
+# emacs workspace files
+auto/*
