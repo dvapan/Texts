@@ -160,3 +160,6 @@ TSWLatexianTemp*
 
 # emacs workspace files
 auto/*
+_*_*
+\#*\#
+.\#*
