@@ -1,9 +1,46 @@
-\chapter{Примеры}
-\label{ch:samples}
+\section{Примеры}
+\label{sec:samples}
 
-Разберем примеры работы алгоритма на двух примерах.
-\section{Пример системы без дрейфа}
-\label{sec:sample}
+Разберем примеры работы алгоритма на двух примерах. Но для начала
+введем несколько дополнительных сущностей. Первая из которых это как
+на практике будет выглядеть проверка условия корректности Фробениуса,
+о котором упоминалось в \eqref{sec:csdisttrack}. Для этого введем
+понятие скобки Ли (коммутатора) двух гладких вектор-функций $\varphi(x)$,
+$\psi(x)$ одной и той же размерности $n$, являющихся столбцами матрицы $G(x)$
+
+Пусть $\varphi_x$, $\psi_x$ --- $n \times n$ матрицы частных
+производных функций $\varphi$ и $\psi$, а $x$ --- вектор размерности $n$. В примерах рассматриваем
+матрицу $G(x)$ размерности $n=2$. В этом случае функция $\varphi_x$ к
+примеру будет выглядеть так:
+\begin{equation*}
+  \begin{pmatrix}
+    \frac{d \varphi_1}{d x_1} & \frac{d \varphi_1}{d x_2} \\
+    \frac{d \varphi_2}{d x_1} & \frac{d \varphi_2}{d x_2}
+  \end{pmatrix}(x)
+\end{equation*}
+Матрица $\psi_x$ --- выглядит аналогично. Тогда скобка Ли
+$[\varphi,\psi]$ функций $\varphi$, $\psi$ определяется равенством.
+\begin{equation*}
+  [\varphi, \psi](x) = \varphi_x(x) \psi(x) - \psi_x(x) \varphi(x)
+\end{equation*}
+Очевидно, что она антикоммутативна т.е. $[\varphi, \psi] = - [\psi,
+\varphi]$.
+
+При условии того, что мы используем матрицу $2 \times 2$, мы будем
+говорить, что рассматриваемая управляемая система удовлетворяет
+условию корректности Фробениуса, если выполняется равенство
+
+\begin{equation}
+  \label{eq:1}
+  [\varphi,\psi](x) \equiv 0.
+\end{equation}
+
+Второе о чем стоит поговорить это способ, благодаря которому мы
+оцениваем порядок точности полученного результата --- между двумя множествами
+вычисляется расстояние Хаусдорфа \eqref{eq:hausd_dist}.
+
+\subsection{Пример системы без дрейфа}
+\label{sec:snwd}
 
 Рассмотрим систему 
 
@@ -16,11 +53,110 @@
   \end{aligned}
 \end{equation*}
 
-Для этой системы была аналитически вычислена граница множества достижимости в
-работе на основе работы \cite{AVS2016}
 
-\section{Пример системы с дрейфом}
-\label{sec:sample}
+Стоит отметить, что для этой системы не выполнено условие корректности
+Фробениуса (равенства нулю коммутатора) подробнее в
+\cite{DS2000}. Покажем это. Возмем скобку Ли (коммутатор) от двух
+гладких вектор-функций $\varphi$ и $\psi$, являющимися столбцами матрицы
+
+\begin{equation*}
+  \begin{aligned}[b]
+    G(x) = 
+    \begin{pmatrix}
+      \varphi & \psi
+    \end{pmatrix},
+    &
+    \varphi =
+    \begin{pmatrix}
+      \varphi_1\\ \varphi_2
+    \end{pmatrix},
+    &
+    \psi =
+    \begin{pmatrix}
+      \psi_1 \\ \psi_2
+    \end{pmatrix}
+  \end{aligned}
+\end{equation*}
+
+
+Скобка Ли будет иметь вид ---
+
+\begin{equation*}
+  [\varphi,\psi] = \varphi_x \psi - \psi_x \varphi = 
+  \begin{pmatrix}
+    \frac{d \varphi_1}{d x_1} & \frac{d \varphi_1}{d x_2} \\
+    \frac{d \varphi_2}{d x_1} & \frac{d \varphi_2}{d x_2}
+  \end{pmatrix}
+  \begin{pmatrix}
+    \psi_1 \\ \psi_2
+  \end{pmatrix}
+  -
+  \begin{pmatrix}
+    \frac{d \psi_1}{d x_1} & \frac{d \psi_1}{d x_2} \\
+    \frac{d \psi_2}{d x_1} & \frac{d \psi_2}{d x_2}
+  \end{pmatrix}
+  \begin{pmatrix}
+    \varphi_1 \\ \varphi_2
+  \end{pmatrix}
+\end{equation*}
+
+В конкретном примере матрица $G(x)$ имеет вид 
+
+\begin{equation*}
+  G(x) = 
+  \begin{pmatrix}
+    (1-x_2) & 0 \\
+    0 & (1-x_1)
+  \end{pmatrix}
+\end{equation*}
+Условие корректности здесь не выполняется:
+\begin{equation*}
+  [\varphi,\psi] = 
+  \begin{pmatrix}
+    x_1 - 1\\
+    x_2 - 1
+  \end{pmatrix}
+  \neq 0
+\end{equation*}
+
+
+Для этой системы была аналитически вычислена граница множества
+достижимости в работе на основе работы \cite{AVS2016} Для разных
+значений $V$ граница опиcывается немного по разному, но общий вид
+формул отсается неизменным. На графиках красным цветом обозначены
+линии, являющиеся границей.
+
+%TODO: Нужны ли формулы?
+На рисунках ниже представлены множества достижимости при различных
+значениях ресурса $V$
+
+\begin{figure}
+\centering
+\begin{minipage}[h]{0.47\linewidth}
+  \noindent \hfil
+  \includegraphics[width=1\linewidth]{img/figure_v_1_h_002.png}
+  \hfil \caption{Множество достижимости для системы с V=1, h=0.02}
+  \label{fig:v1h0.02}
+\end{minipage}
+\vfill
+\begin{minipage}[h]{0.47\linewidth}
+  \noindent \hfil
+  \includegraphics[width=1\linewidth]{img/figure_v_2_h_002.png}
+  \hfil \caption{Множество достижимости для системы с V=2, h=0.02}
+  \label{fig:v2h0.02}
+\end{minipage}
+\vfill
+
+\begin{minipage}[h]{0.47\linewidth}
+  \noindent \hfil
+  \includegraphics[width=1\linewidth]{img/figure_v_7_h_014.png}
+  \hfil \caption{Множество достижимости для системы с V=7, h=0.14}
+  \label{fig:v5h0.2}
+\end{minipage}
+\end{figure}
+
+\subsection{Пример системы с дрейфом}
+\label{sec:swd}
 
 Интегральные кривые следующей системы при нулевом управлении
 представляют собой окружности с центром в начале координат, причем

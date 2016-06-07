@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{report}
+\documentclass[a4paper,12pt]{article}
 \usepackage[english,russian]{babel}
 \usepackage{indentfirst}
 \usepackage[T2A]{fontenc}
@@ -15,12 +15,15 @@
 \geometry{top=2cm}
 \geometry{bottom=2cm}
 
+\usepackage{graphicx}
+
 \renewcommand{\baselinestretch}{1.5}
 \makeindex
 
 \begin{document}
   \input{title}
   \tableofcontents
+  \pagebreak
   \Large
   \input{introduction}
   \input{problem-statement-and-theory}
@@ -28,8 +31,8 @@
   \input{samples}
   \input{program}
   \input{conclusion}
-  \input{applications}
   \input{literature}
+  \input{applications}
 \end{document}
 
 %%% Local Variables:
