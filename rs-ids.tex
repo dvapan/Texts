@@ -1,4 +1,9 @@
 \documentclass[a4paper,12pt]{article}
+\usepackage{extsizes}
+\usepackage{titlesec}
+\usepackage{setspace} 
+\usepackage{cmap} % для кодировки шрифтов в pdf
+
 \usepackage[english,russian]{babel}
 \usepackage{indentfirst}
 \usepackage[T2A]{fontenc}
@@ -16,8 +21,24 @@
 \geometry{bottom=2cm}
 
 \usepackage{graphicx}
-
 \renewcommand{\baselinestretch}{1.5}
+
+\usepackage{indentfirst} % отделять первую строку раздела абзацным отступом тоже
+\usepackage{multirow} % улучшенное форматирование таблиц
+\usepackage{ulem} % подчеркивания
+\usepackage{graphicx,psfrag,pstricks}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt} %нумерация
+\titleformat{\subsection}[runin]
+{\normalfont\bfseries}{\thesubsection}{1em}{}
+
+
+\renewcommand{\rmdefault}{ftm} % Times New Roman
 \makeindex
 
 \begin{document}
