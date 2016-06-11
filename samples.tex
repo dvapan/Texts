@@ -52,7 +52,7 @@ $[\varphi,\psi]$ функций $\varphi$, $\psi$ определяется ра�
     &\dot{x_1}(t) = (1 -x_2(t))v_1(t), & x_1(0)=0\\
     &\dot{x_2}(t) = (1-x_1(t))v_2(t), & x_2(0) = 0\\[8pt]
     &v_1(t) \ge 0, v_2(t) \ge 0 \\
-    &\int_{0}^{1} |v_1(t) + v_2(t)| dt \le V
+    &\int_{0}^{1} |v_1(t)| + |v_2(t)| dt \le V
   \end{aligned}
 \end{equation*}
 
@@ -174,9 +174,9 @@ $[\varphi,\psi]$ функций $\varphi$, $\psi$ определяется ра�
   \hfil \caption{Множество достижимости для системы с V=1, h=0.02}
   \label{fig:v12}
 \end{minipage}
-\end{figure}
-%\vfill
-\begin{figure}[h]
+%\end{figure}
+\vfill
+%\begin{figure}[h]
 \begin{minipage}[h]{0.47\linewidth}
   \noindent \hfil
   \includegraphics[width=1\linewidth]{img/figure_v_2_h_02.png}
