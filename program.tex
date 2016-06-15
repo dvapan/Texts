@@ -1,7 +1,69 @@
 \section{Программа}
 \label{sec:program}
-краткая информация о реализации на Python. Полный исходник в
-приложении.
+
+При реализации алгоритма использовался язык программирования python
+вместе с библеотекой для научных и инженерных расчетов scipy.
+
+Основу кода состовляет класс \emph{ImpulseSystem}, который хранит
+функции $f(x)$ и $G(x)$, позволяя вычислять множество достижимости для
+различных начальных данных и параметров времени. 
+
+\begin{lstlisting}[language=Python,
+caption={Интерфейс Impulse System}]
+class ImpulseSystem(object):
+    drift = None
+    impulse = None
+
+    def __init__(self, drift=None, impulse=None):
+        self.drift = drift
+        self.impulse = impulse
+        self.x_0 = None
+        self.ht = None
+        self.h = None
+        self.time = None
+        self.value = None
+        self.cost = dict()
+        self.state_space = dict()
+        self.grid_error = 0
+
+    def integrate(self, x_0, ht, h, time, value):
+
+    def impulse_jump(self, points_queue):
+
+    def make_drift(self):
+
+    def get_costs_at(self, i, j):
+
+    def get_cost(self, cur_matrix, x, y):
+\end{lstlisting}
+
+Принци работы весьма прост. Мы создаем экземпляр класса
+\emph{ImpulseSystem} отдавая ему в конструктор функции отвечающие за
+дрейф --- \emph{drift} и импульсное воздействие ---
+\emph{impulse}. Например для первого примера \ref{sec:snwd}. Созданный объект будет
+выглядеть следующим образом:
+
+\begin{lstlisting}[language=Python,
+caption={Интерфейс Impulse System}]
+F = None
+G = lambda x: sc.matrix([[1 - x[1], 0], [0, 1 - x[0]]])
+isys = ImpulseSystem(drift=F, impulse=G)
+\end{lstlisting}
+
+Для запуска процесса интегрирования мы вызываем метод
+\emph{integrate}. На вход которому подаем все параметры --- точку
+$x_0$, шаг по времени $h_t$, шаг по сетке $h$, время $T$ и ресурс $V$.
+
+Общий процесс идет по принципу, что описан выше смотри
+\ref{sec:wave_alg}. На каждом интервале сначала работает метод
+\emph{impulse jump}, затем все полученные точки дрейфуют под действием
+\emph{make drift} и так для всех интервалов.
+
+После завершения работы программы мы получаем список точек, для
+аппрокисмации множества достижимости.
+
+
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "rs-ids"
