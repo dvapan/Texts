@@ -90,6 +90,25 @@
 
 \usepackage{afterpage}
 
+
+
+\makeatletter
+    \renewcommand{\l@section}{\@dottedtocline{1}{0.4cm}{0.4cm}}
+    \renewcommand{\section}{\@startsection{section}{1}{0cm}{-3.5ex plus -1ex minus -.2ex}{2.3ex plus.2ex}{\raggedright\normalfont}}
+\makeatother
+
+\makeatletter
+    \renewcommand{\l@subsection}{\@dottedtocline{1}{0.4cm}{0.4cm}}
+    \renewcommand{\subsection}{\@startsection{subsection}{1}{0cm}{-3.5ex plus -1ex minus -.2ex}{2.3ex plus.2ex}{\raggedright\normalfont}}
+\makeatother
+
+\makeatletter
+    \renewcommand{\l@subsubsection}{\@dottedtocline{1}{0.4cm}{0.4cm}}
+    \renewcommand{\subsubsection}{\@startsection{subsubsection}{1}{0cm}{-3.5ex plus -1ex minus -.2ex}{2.3ex plus.2ex}{\raggedright\normalfont}}
+\makeatother
+
+
+
 %% style of unordered lists
 \usepackage{enumitem}
 \renewcommand{\labelitemi}{---}
@@ -142,7 +161,7 @@
 
 
 \usepackage{tocloft}
-\renewcommand{\cfttoctitlefont}{\hspace{0.38\textwidth}\bfseries\normalsize}
+\renewcommand{\cfttoctitlefont}{\hspace{0.38\textwidth}\bfseries\large}
 \renewcommand{\cftsecfont}{\normalsize{\hspace{1.25cm}}}
 \renewcommand{\cftsubsecfont}{\hspace{1.25cm}}
 \renewcommand{\cftbeforesecskip}{0em}
