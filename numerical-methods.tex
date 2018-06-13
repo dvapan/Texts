@@ -310,9 +310,9 @@ FMM нуждается в представлении множества Проб
 \end{itemize}
 В реализации нашего алгоритма это наиболее критичный аспект, для
 увеличения скорости его работы. Наиболее эффективный способ
-использовать неубывающую пирамиду \cite{TK2017}.В русскоязычной
+использовать неубывающую пирамиду \cite{K2017}.В русскоязычной
 литературе существует два термина, которые сводятся к одному в
-английском языке --- это пирамида и куча в перевода \cite{TK2017} есть
+английском языке --- это пирамида и куча в перевода \cite{K2017} есть
 комментарии по этому поводу. Вслед за переводчиками, я буду
 использовать понятие пирамида. Пирамидой называют упорядоченное дерево,
 в котором каждый родитель упорядочивается относительно своих потомков. В
@@ -412,7 +412,7 @@ $\proc{SweepDirs}$, содержащий в себе значения $1$ или
 сложных сеток с препятствиями (или более сложных функций скорости),
 где характеристики часто меняют свое направление, нам может
 понадобится гораздо большее число выметаний, и поэтому FSM - будет
-работать дольше
+работать дольше.
 
 \subsection{Fast sweeping method на нерегулярной сетке}
 \label{sec:unstructured-mesh}
@@ -436,7 +436,7 @@ $\proc{SweepDirs}$, содержащий в себе значения $1$ или
 $\Omega = \bigcup_{\mathcal{T}\in \mathcal{T}_h}\mathcal{T}$ Мы
 полагаем, что $\mathcal{T}_h$ удовлетворяет следующим условиям.
 \begin{itemize}
-\item Не более чем $\mu$ треугольников имеют общую вершину;
+\item Не более чем $\mu$ треугольников имеют общую вершину; 
 \item $h = \sup_{\mathcal{T} \in \mathcal{T}_h}\mathcal{T}$<1;
 \item Существует такая константа $\omega_0$, независящая от $h$ такая,
   что если $\rho_{\mathcal{T}}$ диаметр наибольшего шара $B \subset
@@ -548,16 +548,497 @@ FSM, в этом алгоритме добавляется другой крит
 целочисленных точек \cite{K2017}. Проблема же с количеством выметаний
 ровно та же, что и в классическом FSM
 
+Отдельной задачей в этом методе является построение из разрозненных
+точек системы треугольников. Причем таких, чтобы как можно больше
+углов у них были острыми. Эта задача триангуляции Делоне \cite{T2002}
+
 % рисунок с несколькими опорными точками и фронтом пробегания по
 % остальным точкам
 
+% \subsubsection{Триангуляция}
+% \label{sec:triangulate}
 
-\subsubsection{Триангуляция}
-\label{sec:triangulate}
+
+\subsection{Fast sweeping method для анизотропного случая}
+
+Теперь поразмыслим - что будет если мы для скорости $F$ предположим
+наличие не только направления по нормали от фронта распространения
+волны. Мы получаем в таком случае анизотропное распространение, где
+направление фронта не так просто вычислить. Мы уже не можем
+представить наше уравнение в виде \eqref{eq:eikonal}, поэтому берем более
+общий случай - уравнение Гамильтона-Якоби \eqref{eq:hje}
+
+Если мы возьмем треугольную сетку, как это было сделано выше, то
+направление фронта получается из любой точки на основании $AB$,
+треугольника $ABC$.
+
+Мы вводим треугольную сетку также, как это было сделано в
+\ref{sec:unstructured-mesh}, только теперь формулы вычисления
+локального решения будут другие.
+
+Если $T_A$ и $T_B$ используются для обновления вершины $T_C$, должен
+быть луч, исходящий из отрезка $AB$, к точке $C$, которую мы назовем
+$F(s)$. Эта точка расположена между $A$ и $B$, а $s$ параметризует
+$AB$ таким образом, что $F(0)=A$ и $F(1) = B$.
+
+Пользуясь принципом Ферма, время прибытия в $C$ получится путем
+минимизирования по $s$ следующего функционала:
+
+\begin{equation}
+  \label{eq:2}
+  T_C(s) = sT_B + (1-s)T_A + \frac{d(s)}{v_g(C)},
+\end{equation}
+
+где $d(s) = \overline{CF(s)} = \sqrt(b^2+c^2s^2-2bcs \cos \beta)$, а
+параметр $v_g$ - так называемый вектор группы скоростей, который
+указывает в направлении действия луча $CF(s)$
+
+\begin{equation}
+  \label{eq:3}
+  v_g(x,p) = \left| \frac{dx}{dt} \right| = \left| \nabla_p H  \right|
+\end{equation}
+
 
 \subsection{Вопросы реализации}
 \label{sec:programming}
 
+Для реализации всего вышеперечисленного было решено воспользоваться
+языком программирования $C$, поскольку предполагается большой объем
+вычислений, который не потянет ни один скриптовый язык. В работах
+\cite{AVS2016, AV2015_1, AV2015_2} как раз использовался язык
+python. Даже с окружение Scientific Python, модули которого
+реализованы на компилируемых языках C и Fortran мы не могли добиться
+нужного быстродействия, поскольку здесь алгоритмам требуется изменять
+саму сетку, а не только быстро вычислять значения, т.е. в определенном
+смысле нам приходится постоянно выныривать на уровень python из
+библиотеки и выполнять медленные операции передачи информации на
+другой модуль SciPy и так каждую итерацию алгоритмов. Поэтому было
+решено взять язык $C$.
+
+Вначале был реализован метод FMM, причем на первом этапе вычисление
+скорости включалось внутрь самой программы, что требует каждый раз ее
+перекомпиляции для смены формулы.
+
+Так как мы реализовывали FMM для прямоугольной сетки, то мы можем
+воспользоваться скоростью доступа и изменения значений от
+массивов. Поэтому сетка реализована в виде двумерного массива, но
+кроме того, нам нужна отдельно очередь приоритетов, как это было
+сказано в \ref{sec:fast-marching-method}, для которой мы использована
+ее реализация в библиотеке Glib. Для каждого узла мы храним i,j ---
+индексы, текущей точки
+
+Основную вычислительную нагрузку берет на себя функция
+process\_neighbour (см. Листинг 2.1), который вызывается для каждого соседа той точки,
+значение в которой сейчас наблюдается (было получено из очереди
+приоритетов) Листинг 2.2.
+
+\vspace{1em}
+Листинг 2.1 --- вычисление значения в узле 
+\normalsize
+\begin{verbatim} 
+void process_neighbour(int i, int j)
+{
+  Node node = {i,j};
+  if (!is_internal(node) || 
+      !gsl_matrix_get(K, i, j)) 
+    return;
+  double lT = gsl_matrix_get(T, i - 1, j);
+  double rT = gsl_matrix_get(T, i + 1, j);
+  double uT = gsl_matrix_get(T, i, j - 1);
+  double dT = gsl_matrix_get(T, i, j + 1);
+
+  double mini = lT < rT ? lT : rT;
+  double minj = uT < dT ? uT : rT;
+
+  double time;
+
+  if (finite(mini) && isinf(minj))
+    time = mini + x_step/speed(node);
+  else if (finite(minj) && isinf(mini))
+    time = minj + y_step/speed(node);
+  else if (finite(mini) && finite(minj)){
+    double a = 1/(x_step*x_step) + 
+               1/(y_step*y_step);
+    double b = -2 * (mini/pow(x_step, 2) +
+                     minj/pow(y_step,2));
+    double c = pow(mini/x_step, 2) + 
+               pow(minj/y_step, 2) - 
+               1.0/speed(node);
+    double x1,x2;
+    int croots = gsl_poly_solve_quadratic(a,b,c, 
+                                        &x1, &x2);
+    if (croots == 0)
+      time = INFINITY;
+    else if (croots == 1)
+      time = x1;
+    else if (croots == 2)
+      time = x2;
+  }
+  if (time < gsl_matrix_get(T, i, j)){
+    gsl_matrix_set(T, i, j, time);
+    g_queue_insert_sorted(active_nodes,
+                          make_node(i,j),
+                      (GCompareDataFunc)cmp,NULL);
+  }
+}
+\end{verbatim}
+\large
+
+
+\vspace{1em}
+Листинг 2.2 --- выбор точки и обработка ее соседей
+\normalsize
+\begin{verbatim} 
+void process_neighbour(int i, int j)
+{
+  while (!g_queue_is_empty(active_nodes)) {
+    Node* node = g_queue_pop_head(active_nodes);
+    gsl_matrix_set(K, node->i, node->j,0);
+    process_neighbour(node->i - 1, node->j);
+    process_neighbour(node->i + 1, node->j);
+    process_neighbour(node->i, node->j - 1);
+    process_neighbour(node->i, node->j + 1);
+  }
+
+}
+\end{verbatim}
+\large
+
+
+
+Далее был реализован метод FSM, его особенность в том, что ему
+достаточно только структуры сетки. Процесс вычисления направления
+выметания реализовывался следующей функцией Листинг 2.3
+
+\vspace{1em}
+Листинг 2.3 --- инициализация направлений
+\normalsize
+\begin{verbatim} 
+void get_sweep_dirs()
+{
+        for(int i = 0; i < 2; i++) {
+                sweep_dirs[i] += 2;
+                if (sweep_dirs[i] <= 1)
+                        break;
+                else
+                        sweep_dirs[i] = -1;
+        }
+}
+
+\end{verbatim}
+\large
+
+Далее происходил процесс выметания в направлении, указанном массивом
+sweep\_dirs. Там необходимо переключать направление работы цикла для
+верного вычисления координат. Все это вычисляется функций sweep
+Листинг 2.4
+
+
+\vspace{1em}
+Листинг 2.4 --- процесс выметания
+\normalsize
+\begin{verbatim} 
+bool sweep(int n, int* pos)
+{
+  bool stop = true;
+  if (n > 0){
+    for (int i = 0; i < F->size2; i++){
+      if (sweep_dirs[n] == 1)
+        pos[n] = i;
+      else
+        pos[n] = F->size2 - i - 1;
+      stop = sweep(n - 1, pos);
+    }
+  }
+  else
+    for (int i = 0; i < F->size1; i++){
+      if (sweep_dirs[n] == 1)
+        pos[n] = i;
+      else
+        pos[n] = F->size1 - i - 1;
+
+      double time = process_neighbour(pos[0],pos[1]);
+
+      if (time < gsl_matrix_get(T, pos[0], pos[1])){
+               
+        gsl_matrix_set(T, pos[0], pos[1], time);
+        stop = false;
+      } 
+
+    }
+  return stop;
+
+}
+\end{verbatim}
+\large
+
+В предыдущих случаях нам не было нужды организовывать проект,
+поскольку все, что нам было нужно легко помещалось в один файл. Для
+организации же неструктурированной сетки нам пришлось отказаться от
+простой и наглядной (на первый взгляд) идеи массива в качестве основы
+для сетки. Теперь вся она представляет собой граф, где каждый узел
+хранит в себе необходимые значения скорости в текущей точке, координат
+и значения искомой функции.
+
+Граф был реализован на основании списках смежности смотри Листинг 2.5
+и Листинг 2.6, поскольку у
+каждого узла сетки лишь малое количество соседей по сравнению с общим
+их числом.
+
+\vspace{1em}
+Листинг 2.5 --- Заголовочный файл для графа
+\normalsize
+\begin{verbatim}
+#ifndef GRAPH_H
+#define GRAPH_H 1
+
+#include <stdbool.h>
+
+struct link
+{
+        struct vertex* vertex;
+        struct link* next;
+};
+
+struct vertex
+{
+        int id;
+        int cnt_dims;
+        double *coords;
+        double fx;
+        double ux;
+};
+
+struct graph
+{
+        int cnt_vertices;
+        int cnt_edges;
+        struct vertex* vertices;
+        struct link** adj;
+};
+
+struct graph* make_graph(int cnt_vertices, 
+                         int cnt_dims,
+                         double** coords, 
+                         double* values,
+                         double* init_u);
+void graph_connect(struct graph*, 
+                   int, int);
+bool graph_is_connected(struct graph*, 
+                        int, int);
+struct link* graph_get_neighbours(
+                        struct graph* g, 
+                        int id);
+
+#endif // GRAPH_H
+
+\end{verbatim}
+\large
+
+
+\vspace{1em}
+Листинг 2.6 --- Реализация графа
+\normalsize
+\begin{verbatim}
+
+#include <stdlib.h>
+#include <stdbool.h>
+#include <math.h>
+
+#include "graph.h"
+
+void fill_vertex(struct vertex* v, 
+                 int cnt_dims, 
+                 double* coords, 
+                 double fx, 
+                 double ux)
+{
+  v->cnt_dims = cnt_dims;
+  v->coords = coords;
+  v->fx = fx;
+  v->ux = ux;
+}
+
+struct link *new_link(struct vertex* vertex, 
+                      struct link* next)
+{
+  struct link* x = malloc(sizeof(struct link));
+  x->vertex = vertex;
+  x->next = next;
+  return x;
+
+}
+
+struct graph* make_graph(int cnt_vertices, 
+                         int cnt_dims ,
+                         double* coords[],
+                         double* values,
+                         double* init_u)
+{
+  struct graph* g = malloc(sizeof (struct graph));
+  g->cnt_vertices = cnt_vertices;
+  g->cnt_edges = 0;
+  g->vertices = 
+    malloc(sizeof(struct vertex) * cnt_vertices);
+  for (int v = 0; v < cnt_vertices; v++) {
+    fill_vertex(&g->vertices[v],
+                 cnt_dims,coords[v],
+                 values[v],init_u[v]);
+    g->vertices[v].id = v;
+  }
+  g->adj = 
+    malloc(sizeof(struct link) * cnt_vertices);
+  for (int v = 0; v < cnt_vertices; v++) {
+    g->adj[v] = NULL;
+  }
+  return g;
+}
+
+void graph_connect(struct graph* g, 
+                   int id1, int id2)
+{
+  struct vertex* v1 = &g->vertices[id1];
+  struct vertex* v2 = &g->vertices[id2];
+  g->adj[id1] = new_link(v2, g->adj[id1]);
+  g->adj[id2] = new_link(v1, g->adj[id2]);
+  g->cnt_edges++;
+}
+
+bool graph_is_connected(struct graph* g, 
+                        int id1, int id2)
+{
+  for(struct link* t =g->adj[id1]; 
+         t != NULL; t = t->next)
+    if (t->vertex->id == id2) return true;
+  return false;
+}
+
+struct link* graph_get_neighbours(
+              struct graph *g, int id)
+{
+  return g->adj[id];
+}
+
+\end{verbatim}
+\large
+
+Кроме того в соответствии с формулами \ref{sec:unstructured-mesh} мы
+получаем другую функцию для вычисления локального решения мы вычисляем
+необходимые параметры треугольника функцией set\_triangle, а функцией
+solve\_ndims находим решение в точке.
+
+\vspace{1em}
+Листинг 2.7 --- Реализация решения на треугольной сетке
+\normalsize
+\begin{verbatim}
+void set_triangle(struct vertex* v, 
+                  struct vertex* v1, 
+                  struct vertex* v2,
+                  double* a, 
+                  double* b, 
+                  double* c,
+                  double *al, 
+                  double* bt)
+{
+  double b2c = 0;
+  double a2c = 0;
+  *a=*b=*c=0;
+  for (int i = 0; i < v->cnt_dims; i++){
+    *a += (v->coords[i] - v2->coords[i])*
+          (v->coords[i] - v2->coords[i]);
+    *b += (v->coords[i] - v1->coords[i])*
+          (v->coords[i] - v1->coords[i]);
+    *c += (v1->coords[i]- v2->coords[i])*
+          (v1->coords[i]- v2->coords[i]);
+    b2c+= (v->coords[i] - v2->coords[i])*
+          (v1->coords[i]- v2->coords[i]);
+    a2c+= (v->coords[i] - v1->coords[i])*
+          (v2->coords[i]- v1->coords[i]);
+  }
+  *a = sqrt(*a);
+  *b = sqrt(*b);
+  *c = sqrt(*c);
+  *al = acos(b2c/(*b*(*c)));
+  *bt = acos(a2c/(*a*(*c)));
+}
+
+double solve_ndims(struct graph* mesh, int id)
+{
+  double min_ux = INFINITY;
+  struct vertex* v = &mesh->vertices[id];
+  struct link* ngbrs = 
+          graph_get_neighbours(mesh,id);
+  int cnt_known = 0; int id_known = -1;
+  for(struct link* t = ngbrs; 
+       t != NULL; t = t->next){
+    for (struct link* r = t; 
+         r != NULL; r = r->next){
+      struct vertex* v1 = t->vertex;
+      struct vertex* v2 = r->vertex;
+
+      if (isfinite(t->vertex->ux) &&
+           isfinite(r->vertex->ux)){
+        if (t->vertex->ux < r->vertex->ux) {
+          v1 = t->vertex;
+          v2 = r->vertex;
+        } else {
+          v2 = t->vertex;
+          v1 = r->vertex;
+        }
+      } else if (isfinite(t->vertex->ux))
+        {
+          v1 = t->vertex;
+          v2 = r->vertex;
+
+        } else if (isfinite(r->vertex->ux))
+        {
+          v2 = t->vertex;
+          v1 = r->vertex;
+
+        }
+
+      double a,b,c,al,bt;
+      set_triangle(v,v1,v2,&a,&b,&c,&al,&bt);
+      if (isfinite(v2->ux)&& isfinite(v1->ux) 
+         && r != t && abs(v2->ux - v1->ux)
+           <= c/v->fx){
+        double th = 
+          asin(abs(v1->ux - v2->ux)/(c/v->fx));
+        double lcorn = 
+          (al - M_PI/2 > 0) ? al - M_PI/2 : 0;
+        double rcorn = (M_PI/2 - bt < 0) 
+                 ? M_PI/2 - bt : 0;
+        if (lcorn <= th && th <= M_PI/2 - bt || 
+            al - M_PI/2 <= th <= rcorn){
+          double h = a*sin(al - th);
+          double H = b*sin(bt + th);
+          double new_ux = 0.5*(h/v->fx + v2->ux) +
+            0.5*(H/v->fx + v1->ux);
+          if (new_ux < min_ux)
+            min_ux = new_ux;
+        }
+        else if (isfinite(v1->ux) && 
+                v1->ux + b/v->fx < min_ux)
+          min_ux = v1->ux + b/v->fx;
+        else if (isfinite(v2->ux) && 
+                v2->ux + a/v->fx < min_ux)
+          min_ux = v2->ux + a/v->fx;
+      }
+      else if (isfinite(v1->ux) && 
+               v1->ux + b/v->fx < min_ux)
+        min_ux = v1->ux + b/v->fx;
+      else if (isfinite(v2->ux) && 
+               v2->ux + a/v->fx < min_ux)
+        min_ux = v2->ux + a/v->fx;
+
+    }
+  }
+  return min_ux;
+
+}
+
+\end{verbatim}
+\large
 
 
 %%% Local Variables:
