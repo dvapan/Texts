@@ -1,6 +1,6 @@
 PDFLATEX = pdflatex
 
-PNAME=rs-ids
+PNAME=eikonal_solver
 
 LOCALE=ru_RU.koi8r
 
