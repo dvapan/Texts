@@ -50,6 +50,7 @@
 
 \renewcommand{\baselinestretch}{1.5}
 \makeindex
+\graphicspath{{imgs/rs_ids/}}
 
 \begin{document}
 \large
@@ -809,7 +810,7 @@ $[\varphi,\psi]$ функций $\varphi$, $\psi$ определяется ра�
 На Рис.~\ref{fig:v22} представлен пример множества достижимости 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\linewidth]{img/figure_v_2_h_002.png}
+  \includegraphics[width=0.5\linewidth]{figure_v_2_h_002.png}
   \hfil \caption{Множество достижимости для системы с V=2, h=0.02}
   \label{fig:v22}
 
@@ -861,7 +862,7 @@ $h$ и в третьей --- расстояния Хаусдорфа. Поско
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\linewidth]{img/conv_nd.png}
+  \includegraphics[width=0.5\linewidth]{conv_nd.png}
   \hfil \caption{Зависимость расстояния от шага сетки}
   \label{fig:conv_nd}
 \end{figure}
@@ -887,7 +888,7 @@ $h$ и в третьей --- расстояния Хаусдорфа. Поско
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\linewidth]{img/figure_dc_h_005_ht_02}
+  \includegraphics[width=0.5\linewidth]{figure_dc_h_005_ht_02}
   \hfil \caption{Множество достижимости для системы с h=0.05, ht=0.2}
   \label{fig:h001_01}
 \end{figure}
@@ -930,7 +931,7 @@ $h$ и в третьей --- расстояния Хаусдорфа. Нетру
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\linewidth]{img/conv_d.png}
+  \includegraphics[width=0.5\linewidth]{conv_d.png}
   \hfil \caption{Зависимость расстояния от шага сетки}
   \label{fig:conv_d}
 \end{figure}
@@ -946,7 +947,7 @@ $h$ и в третьей --- расстояния Хаусдорфа. Нетру
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\linewidth]{img/figure_ndb_v7.png}
+  \includegraphics[width=0.5\linewidth]{figure_ndb_v7.png}
   \hfil \caption{Множество достижимости для системы с ограничением}
   \label{fig:vfb}
 \end{figure}
@@ -993,7 +994,7 @@ $h$ и в третьей --- расстояния Хаусдорфа. Нетру
 \begin{figure}[h]
   \centering
 
-  \includegraphics[width=0.5\linewidth]{img/figure_d_h_001_ht_01}
+  \includegraphics[width=0.5\linewidth]{/figure_d_h_001_ht_01}
   \hfil \caption{Множество достижимости для системы с h=0.01, ht=0.1}
   \label{fig:v1h0.02}
 \end{figure}
@@ -1008,11 +1009,7 @@ $h$ и в третьей --- расстояния Хаусдорфа. Нетру
 функции $f(x)$ и $G(x)$, позволяя вычислять множество достижимости для
 различных начальных данных и параметров времени. 
 
-\begin{lstlisting}[language=Python,
-caption={Интерфейс Impulse System}]
-class ImpulseSystem(object):
-drift = None
-impulse = None
+\begin{verbatim}
 
 def __init__(self, drift=None, impulse=None):
     self.drift = drift
@@ -1048,7 +1045,7 @@ caption={Интерфейс Impulse System}]
 F = None
 G = lambda x: sc.matrix([[1 - x[1], 0], [0, 1 - x[0]]])
 isys = ImpulseSystem(drift=F, impulse=G)
-\end{lstlisting}
+\end{verbatim}
 
 Для запуска процесса интегрирования мы вызываем метод
 \emph{integrate}. На вход которому подаем все параметры --- точку
