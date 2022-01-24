@@ -45,6 +45,7 @@
 \captionsetup[table]{labelformat=gosttable}
 \renewcommand{\thesubfigure}{\asbuk{subfigure}}
 
+\graphicspath{{imgs/eikonal_solver/}}
 
 \title[ВКР]{\large \textbf{ВЫПУСКНАЯ
     КВАЛИФИКАЦИОННАЯ РАБОТА\\МАГИСТРА}\\[1em]
@@ -110,7 +111,7 @@
 
 	\end{frame}
 }
-% \renewcommand{\stamp}{}
+\renewcommand{\stamp}{}
 
 
 \begin{document}
@@ -139,7 +140,7 @@
 \frametitle{Постановка задачи \\ Уравнение эйконала}
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.7\linewidth]{img/eikonal_vision.png}
+  \includegraphics[width=0.7\linewidth]{eikonal_vision.png}
   \hfil \caption{распространение кривой со скоростью $F$}
   \label{fig:eikvis}
 
@@ -242,7 +243,7 @@
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\linewidth]{img/upwind-schema.png}
+  \includegraphics[width=0.8\linewidth]{upwind-schema.png}
   \hfil \caption{Пример разных направлений распространения}
   \label{fig:upwind-schema}
 
@@ -265,7 +266,7 @@
     регулярной сетке}
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.7\linewidth]{img/fmm_expand.png}
+  \includegraphics[width=0.7\linewidth]{fmm_expand.png}
   % \hfil \caption{\small{процедура обновления FMM}}
   \label{fig:eikvis}
 
@@ -278,7 +279,7 @@
 \frametitle{Численные методы решения \\ Fast marching method на регулярной сетке}
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\linewidth]{img/fmm_explain.png}
+  \includegraphics[width=\linewidth]{fmm_explain.png}
   \hfil \caption{ход работы FMM}
   \label{fig:eikvis}
 
@@ -291,7 +292,7 @@
     регулярной сетке}
   \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.9\linewidth]{img/minheap.png}
+  \includegraphics[width=0.9\linewidth]{minheap.png}
   \hfil \caption{Пример пираммиды для $T$}
   \label{fig:eikvis}
 \end{figure}
@@ -313,7 +314,7 @@
     регулярной сетке}
   \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.7\linewidth]{img/fsm_expand.png}
+  \includegraphics[width=0.7\linewidth]{fsm_expand.png}
   \hfil \caption{процедура выметания FSM}
   \label{fig:eikvis}
 
@@ -349,7 +350,7 @@
   
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{img/triangle-mesh.png}
+  \includegraphics[width=0.5\linewidth]{triangle-mesh.png}
   \hfil \caption{Пример треугольной сетки}
   \label{fig:triangle-front}
 
@@ -365,7 +366,7 @@
   
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.7\linewidth]{img/triangle-front-slide.png}
+  \includegraphics[width=0.7\linewidth]{triangle-front-slide.png}
   \hfil \caption{Изменение значения в вершине С, на треугольной сетке}
   \label{fig:triangle-front}
 
@@ -415,7 +416,7 @@
   
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.7\linewidth]{img/refpoints.png}
+  \includegraphics[width=0.7\linewidth]{refpoints.png}
   \hfil \caption{Опорные точки}
   \label{fig:triangle-front}
 
@@ -447,7 +448,7 @@ Fast sweeping method для анизотропного случая}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.3\linewidth]{img/anisotropy.png}
+  \includegraphics[width=0.3\linewidth]{anisotropy.png}
   \hfil \caption{Локальное решение в анизотропном случае}
   \label{fig:triangle-front}
 
@@ -498,7 +499,7 @@ Fast sweeping method для анизотропного случая}
   \begin{figure}[ht]
     \begin{minipage}[h]{0.49\linewidth}
       \centering
-      \includegraphics[width=0.7\linewidth]{img/eikonal_simple_surface.png}
+      \includegraphics[width=0.7\linewidth]{eikonal_simple_surface.png}
       \hfil \caption{Линии уровня эйконала с $F\equiv 1$ }
       \label{fig:eikonal-surface}
 
@@ -506,7 +507,7 @@ Fast sweeping method для анизотропного случая}
     \begin{minipage}[ht]{0.49\linewidth}
       % \centering
       \centering
-      \includegraphics[width=0.7\linewidth]{img/barier_surface.png}
+      \includegraphics[width=0.7\linewidth]{barier_surface.png}
       \hfil \caption{Линии уровня эйконала с $F\equiv 1$, с препятствием}
       \label{fig:barier_surface}
     \end{minipage}
@@ -566,7 +567,7 @@ Fast sweeping method для анизотропного случая}
   \begin{figure}[ht]
     \begin{minipage}[h]{0.49\linewidth}
       \centering
-      \includegraphics[width=0.9\linewidth]{img/impulse-example-levels.png}
+      \includegraphics[width=0.9\linewidth]{impulse-example-levels.png}
       \hfil \caption{Линии уровня множества достижимости }
       \label{fig:eikonal-surface}
 
@@ -574,7 +575,7 @@ Fast sweeping method для анизотропного случая}
     \begin{minipage}[ht]{0.49\linewidth}
       % \centering
       \centering
-      \includegraphics[width=0.9\linewidth]{img/impulse-example.png}
+      \includegraphics[width=0.9\linewidth]{impulse-example.png}
       \hfil \caption{трехмерный вид интегральной воронки}
       \label{fig:barier_surface}
     \end{minipage}
@@ -615,7 +616,7 @@ Fast sweeping method для анизотропного случая}
     \begin{minipage}[ht]{0.49\linewidth}
       % \centering
       \centering
-      \includegraphics[width=0.9\linewidth]{img/sfs-explain.png}
+      \includegraphics[width=0.9\linewidth]{sfs-explain.png}
       \hfil \caption{Пример поверхности с источником света $S$ и
         нормалью $N$}
       \label{fig:barier_surface}
@@ -631,14 +632,14 @@ Fast sweeping method для анизотропного случая}
   \begin{figure}[ht]
     \begin{minipage}[h]{0.49\linewidth}
       \centering
-      \includegraphics[width=0.9\linewidth]{img/sphere_in.png}
+      \includegraphics[width=0.9\linewidth]{sphere_in.png}
       \hfil \caption{Сфера исходное изображение}
       \label{fig:ex:1:in}
 
     \end{minipage}
     \begin{minipage}[ht]{0.49\linewidth}
       \centering
-      \includegraphics[width=0.9\linewidth]{img/sphere.png}
+      \includegraphics[width=0.9\linewidth]{sphere.png}
       \hfil \caption{Трехмерная поверхность сферы по фотографии}
       \label{fig:ex:1:out}
 
@@ -654,14 +655,14 @@ Fast sweeping method для анизотропного случая}
   \begin{figure}[ht]
     \begin{minipage}[h]{0.49\linewidth}
       \centering
-      \includegraphics[width=0.9\linewidth]{img/teapot_in.jpg}
+      \includegraphics[width=0.9\linewidth]{teapot_in.jpg}
       \hfil \caption{Чайник исходное изображение}
       \label{fig:ex:1:in}
 
     \end{minipage}
     \begin{minipage}[ht]{0.49\linewidth}
       \centering
-      \includegraphics[width=0.9\linewidth]{img/teapot.png}
+      \includegraphics[width=0.9\linewidth]{teapot.png}
       \hfil \caption{Трехмерная поверхность чайника по фотографии}
       \label{fig:ex:1:out}
 
@@ -678,14 +679,14 @@ Fast sweeping method для анизотропного случая}
   \begin{figure}[ht]
     \begin{minipage}[h]{0.49\linewidth}
       \centering
-      \includegraphics[width=0.9\linewidth]{img/mozart_in.png}
+      \includegraphics[width=0.9\linewidth]{mozart_in.png}
       \hfil \caption{Моцарт исходное изображение}
       \label{fig:ex:1:in}
 
     \end{minipage}
     \begin{minipage}[ht]{0.49\linewidth}
       \centering
-      \includegraphics[width=0.9\linewidth]{img/mozart.png}
+      \includegraphics[width=0.9\linewidth]{mozart.png}
       \hfil \caption{Трехмерная поверхность моцарта по фотографии}
       \label{fig:ex:1:out}
 
@@ -701,14 +702,14 @@ Fast sweeping method для анизотропного случая}
   \begin{figure}[ht]
     \begin{minipage}[h]{0.49\linewidth}
       \centering
-      \includegraphics[width=0.9\linewidth]{img/man_in.jpg}
+      \includegraphics[width=0.9\linewidth]{man_in.jpg}
       \hfil \caption{исходная фотография}
       \label{fig:ex:4:in}
 
     \end{minipage}
     \begin{minipage}[ht]{0.49\linewidth}
       \centering
-      \includegraphics[width=0.9\linewidth]{img/man_all.png}
+      \includegraphics[width=0.9\linewidth]{man_all.png}
       \hfil \caption{Трехмерная поверхность по фотографии общая}
       \label{fig:ex:4:out1}
     \end{minipage}
