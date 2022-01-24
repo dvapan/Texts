@@ -5,8 +5,8 @@
 *.ps
 *.eps
 *.pdf
+*.toc
 
-=======
 *.fot
 *.cb
 *.cb2
