@@ -1,0 +1,203 @@
+\let\iint=\undefined
+\let\iiint=\undefined
+
+\RequirePackage{amsmath,amsthm}
+\RequirePackage{amssymb} %,amsfont}
+\ifx\pdfoutput\undefined
+\usepackage{graphicx}
+\else
+\usepackage[pdftex]{graphicx}
+\fi
+
+
+\RequirePackage{indentfirst, misccorr}
+\RequirePackage{psfrag}
+%\RequirePackage{srcltx}
+\DeclareMathOperator{\Hom}{Hom} \DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coker}{coker}
+%\RequirePackage{misccorr}
+\usepackage{multicol}
+\setcounter{MaxMatrixCols}{20}
+\usepackage{wrapfig}
+\usepackage{marvosym}
+\usepackage{multirow}
+\usepackage[labelformat=empty]{caption}
+
+
+
+\textwidth=12.5cm%12.5cm
+\textheight=20cm%20.0cm
+
+
+
+
+
+
+
+
+
+
+
+
+\newcommand{\anne}[1]{{\selectlanguage{english}#1\par}}
+
+
+\let\include=\input
+
+\newtheorem{theorem}{{\ifnum \c@aqwe >1 {\fontsize{12pt}{14pt}\selectfont Theorem}\else{\fontsize{12pt}{14pt}\selectfont Теорема}\fi}}
+
+
+
+\newtheorem*{theorem*}{{\ifnum \c@aqwe >1  {\fontsize{12pt}{14pt}\selectfont Theorem}\else{\fontsize{12pt}{14pt}\selectfont Теорема}\fi}}
+
+
+
+
+\newtheorem{lemma}{{\ifnum \c@aqwe >1 {\fontsize{12pt}{14pt}\selectfont Lemma}\else{\fontsize{12pt}{14pt}\selectfont Лемма}\fi }}
+
+
+\newtheorem*{lemma*}{{\ifnum \c@aqwe >1 {\fontsize{12pt}{14pt}\selectfont Lemma}\else{\fontsize{12pt}{14pt}\selectfont Лемма}\fi}}
+
+
+
+\newtheorem{state}{\ifnum \c@aqwe >1{\fontsize{12pt}{14pt}\selectfont State}\else{\fontsize{12pt}{14pt}\selectfont Утверждение}\fi}
+
+
+\newtheorem{proposition}{\ifnum \c@aqwe >1{\fontsize{12pt}{14pt}\selectfont Proposition}\else{\fontsize{12pt}{14pt}\selectfont Предложение}\fi}
+
+
+
+\newtheorem{statement}{\ifnum \c@aqwe >1{\fontsize{12pt}{14pt}\selectfont Proposition}\else{\fontsize{12pt}{14pt}\selectfont Утверждение}\fi}
+
+
+
+\newtheorem{corollary}{\ifnum \c@aqwe >1  {\fontsize{12pt}{14pt}\selectfont Corollary}\else{\fontsize{12pt}{14pt}\selectfont Следствие}\fi}
+
+\newtheorem{remark}{\ifnum \c@aqwe >1 {\fontsize{12pt}{14pt}\selectfont Remark}             \else{\fontsize{12pt}{14pt}\selectfont Замечание}\fi}       \rmtheorem{remark}
+
+
+\newtheorem{problem}{{\fontsize{12pt}{14pt}\selectfont Задача}}         \rmtheorem{problem}
+\newtheorem{alg}{{\fontsize{12pt}{14pt}\selectfont Алгоритм}}           \rmtheorem{alg}
+
+\newtheorem*{algbn}{{\fontsize{12pt}{14pt}\selectfont Алгоритм}}
+
+
+\newtheorem{definition}{{\ifnum \c@aqwe >1{\fontsize{12pt}{14pt}\selectfont Definition}\else {\fontsize{12pt}{14pt}\selectfont Определение}\fi }} 
+
+%\rmtheorem{definition}
+
+
+\newtheorem{example}{\ifnum \c@aqwe >1  {\fontsize{12pt}{14pt}\selectfont Example}\else{\fontsize{12pt}{14pt}\selectfont Пример}\fi}
+
+
+%\newtheorem{example}{{\fontsize{12pt}{14pt}\selectfont Пример}}         %\rmtheorem{example}
+
+
+%\newtheorem{vvopr}{{\fontsize{12pt}{14pt}\selectfont Определениеsjhcjshjhs}}
+\newtheorem{vopr}{{\fontsize{12pt}{14pt}\selectfont Вопрос}}            \rmtheorem{vopr}   
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{theoreme}{{\fontsize{12pt}{14pt}\selectfont Theorem}}
+\newtheorem{lemmae}{{\fontsize{12pt}{14pt}\selectfont Lemma}}
+\newtheorem{corollarye}{{\fontsize{12pt}{14pt}\selectfont Corollary}}
+\newtheorem{remarke}{{\fontsize{12pt}{14pt}\selectfont Remark}}       \rmtheorem{remark}
+        \rmtheorem{problem}
+           \rmtheorem{alg}
+\newtheorem{definitione}{{\fontsize{12pt}{14pt}\selectfont Definition}} %\rmtheorem{definition}
+        \rmtheorem{example}
+\newtheorem{examplee}{{\fontsize{12pt}{14pt}\selectfont Example}}
+\newtheorem{propositione}{{\fontsize{12pt}{14pt}\selectfont Proposition}}
+
+\newtheorem{statee}{{\fontsize{12pt}{14pt}\selectfont State}}
+
+%%%%%%%%%%%%%%%
+
+\numberwithin{equation}{section}
+
+%\renewcommand{\keywordsname}{Ключевые слова}
+
+
+
+
+\renewenvironment{proof}[1][\ifnum \c@aqwe >1 Proof\else \proofname\fi]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+
+\providecommand{\proofname}{Proof}
+
+
+
+
+\usepackage{algorithm, algorithmicx }
+\usepackage{algpseudocode}
+\usepackage{lineno}
+
+
+\usepackage{multirow}
+%\usepackage{url}
+
+
+
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\Projj}{Proj}
+
+
+
+
+
+\renewcommand{\kaplogo}{}
+
+\newcommand{\nazogl}[2]{\addcontentsline{toc}{abcdf}{#1#2}}
+
+\newcommand{\avtogl}[2]{\addcontentsline{toc}{abcdf}{%
+\ifnum\c@aqwe > 1 \protect\selectlanguage{english}%
+\else \protect\selectlanguage{russian}\fi{\bfseries #1.} #2}}
+
+\newcommand{\avtogle}[2]{\addcontentsline{toce}{abcdf}{\ifnum\c@aqwe > 1 \protect\selectlanguage{english}%
+\else \protect\selectlanguage{english}\fi{\bfseries #1.} #2}}
+
+
+
+\newcommand{\rra}[3]{\small\selectlanguage{russian}
+\begin{flushright}
+	\textit{Поступила в редакцию / Received} #1\\
+	\textit{Поступила после рецензирования / Revised} #2\\
+	\textit{Принята к публикации / Accepted} #3\\
+\end{flushright}}
+
+\newcommand{\ra}[2]{\small\selectlanguage{russian}
+	\begin{flushright}
+		\textit{Поступила в редакцию / Received} #1\\
+			\textit{Принята к публикации / Accepted} #2\\
+\end{flushright}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\refnamer{\ifnum \c@aqwe >1 References \else Список источников\fi}
+
+\newcommand{\abth}[1]{{\vspace{3mm}\noindent\parbox{6cm}{{
+				{\selectlanguage{russian}\textbf{Об авторах}}}}\hfill\parbox{6cm}{{\textbf{About the authors}}}\\[1mm]#1}
+}
+
+
+\gdef\aboutauthors#1#2{\vspace{3mm}\selectlanguage{russian}\small
+	\noindent\begin{minipage}[t][\height][t]{6cm}
+		%Сведения об авторе на языке статьи
+		\begin{flushleft}
+			#1
+	\end{flushleft}\end{minipage}\hfill\selectlanguage{english}
+	\begin{minipage}[t][\height][t]{6cm}
+		\begin{flushleft}
+			#2
+		\end{flushleft}
+\end{minipage}}
+
+
+\def\refnamee{\ifnum \c@aqwe >1 {\selectlanguage{russian}Список источников} \else References\fi}
