@@ -149,7 +149,7 @@
 \renewcommand{\l@subsubsection}{\@dottedtocline{1}{2.25cm}{1.25cm}}
 \makeatother
 
-\graphicspath{{imgs/eikonal_solver/}}
+\graphicspath{{imgs/}}
 \makeindex
 
 \begin{document}
@@ -672,7 +672,6 @@ $i = -n, \cdots, n$.
 
 \begin{equation}
   \begin{aligned}
-  \label{eq:replaced}
     T &= T_{i,j}\\
     T_{x}&= \min(T_{i-1,j},T_{i+1,j})\\
     T_{y}&= \min(T_{i,j-1},T_{i,j-1})
@@ -709,7 +708,6 @@ $i = -n, \cdots, n$.
 
 \begin{equation}
   \begin{aligned}
-  \label{eq:replaced}
     a &= \Delta_2 x + \Delta^2 y\\[0.4cm]
     b &= -2(\Delta^2y T_{x}+\Delta^2x T_{y})\\
     c &= \Delta^2 y T_{y}^2 + \Delta^2 x T_{x}^2 - \frac{\Delta^2 x
